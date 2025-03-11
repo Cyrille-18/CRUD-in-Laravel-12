@@ -13,6 +13,13 @@ class StudentController extends Controller
         return view('students.create');
     }
 
+    // Fonction qui affiche la liste des étudiants
+    public function index()
+    {
+        $students = Student::all(); // Récupérer tous les étudiants
+        return view('students.index', compact('students')); // Envoyer à la vue
+    }
+
     // fonction qui va stocker le student dans la base de données
     // Stocke les données du formulaire dans la base de données
     public function store(Request $request)
@@ -34,6 +41,9 @@ class StudentController extends Controller
         ]);
 
         // Rediriger avec un message de succès
-        return redirect()->back()->with('success', 'Étudiant ajouté avec succès !');
+        return redirect()->route('students.index');    }
+
+    public function show(Request $request){
+        dd($request->id);
     }
 }
